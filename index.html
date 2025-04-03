@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./main.js" defer></script>
+    <title>WhatsApp Web Clone</title>
+</head>
+<body>
+    <div class="app-container">
+        <div class="sidebar">
+            <div class="search-bar">
+                <input type="text" placeholder="Pesquisar ou começar uma nova conversa">
+            </div>
+            <div class="contacts-list" id="contacts-list">
+                <!-- Contatos serão carregados aqui -->
+            </div>
+        </div>
+        <div class="chat-area">
+            <div class="chat-header">
+                <div class="contact-info" id="contact-info">
+                    <!-- Informações do contato selecionado -->
+                    <h3>Selecione um contato</h3>
+                </div>
+            </div>
+            <div class="messages-container" id="messages-container">
+                <!-- Mensagens serão carregadas aqui -->
+                <p class="empty-message">Selecione um contato para ver as mensagens</p>
+            </div>
+            <div class="message-input">
+                <input type="text" placeholder="Digite uma mensagem" disabled>
+                <button disabled>Enviar</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

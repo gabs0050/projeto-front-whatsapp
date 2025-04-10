@@ -4,10 +4,48 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactsList = document.getElementById('contacts-list')
     const contactInfo = document.getElementById('contact-info')
     const messagesContainer = document.getElementById('messages-container')
+    const contactSearch = document.getElementById('contact-search')
+    const messageInput = document.getElementById('message-input')
+    const sendButton = document.getElementById('send-button')
     const userNumber = '11987876567'
     const baseImageUrl = 'https://api-whatsapp-xlr1.onrender.com/'
 
     let allContacts = []
+    let currentContact = null
+
+    contactSearch.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase()
+        const filteredContacts = allContacts.filter(contact => 
+            contact.name.toLowerCase().includes(searchTerm) || 
+            (contact.description && contact.description.toLowerCase().includes(searchTerm))
+        )
+        renderContacts(filteredContacts)
+    })
+
+    sendButton.addEventListener('click', sendMessage)
+    messageInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendMessage()
+        }
+    })
+
+    function sendMessage() {
+        if (!currentContact || !messageInput.value.trim()) return
+        
+        const newMessage = {
+            content: messageInput.value.trim(),
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            sender: 'me'
+        }
+        
+        currentContact.messages.push(newMessage)
+        
+        loadChat(currentContact)
+        
+        messageInput.value = ''
+        
+        messagesContainer.scrollTop = messagesContainer.scrollHeight
+    }
 
     async function loadContacts() {
         try {
@@ -24,7 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
             renderContacts(allContacts)
             
             if (allContacts.length > 0) {
-                loadChat(allContacts[0])
+                currentContact = allContacts[0]
+                loadChat(currentContact)
             }
             
         } catch (error) {
@@ -51,6 +90,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderContacts(contacts) {
         contactsList.replaceChildren()
+        
+        if (contacts.length === 0) {
+            const emptyMsg = document.createElement('p')
+            emptyMsg.className = 'empty-message'
+            emptyMsg.textContent = 'Nenhum contato encontrado'
+            contactsList.appendChild(emptyMsg)
+            return
+        }
         
         contacts.forEach(contact => {
             const contactElement = document.createElement('div')
@@ -89,8 +136,13 @@ document.addEventListener('DOMContentLoaded', () => {
             contactElement.addEventListener('click', () => {
                 document.querySelectorAll('.contact').forEach(c => c.classList.remove('active'))
                 contactElement.classList.add('active')
+                currentContact = contact
                 loadChat(contact)
             })
+            
+            if (currentContact && contact.name === currentContact.name) {
+                contactElement.classList.add('active')
+            }
             
             contactsList.appendChild(contactElement)
         })
@@ -98,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadChat(contact) {
         messagesContainer.replaceChildren()
+        currentContact = contact
         
         updateChatHeader(contact)
         

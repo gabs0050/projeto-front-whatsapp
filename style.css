@@ -196,7 +196,6 @@ body {
     margin-top: 2px;
 }
 
-/* Estilos para avatares */
 .contact-avatar {
     width: 50px;
     height: 50px;
@@ -217,7 +216,6 @@ body {
     object-fit: cover;
 }
 
-/* Estilos para o cabeçalho do chat */
 .chat-header {
     display: flex;
     align-items: center;
@@ -256,9 +254,61 @@ body {
     color: #667781;
 }
 
-/* Fallback para imagens quebradas */
 .contact-avatar img[src*="placeholder.com"],
 .chat-header-avatar img[src*="placeholder.com"] {
     object-fit: contain;
     padding: 5px;
+}
+
+#contact-search {
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: none;
+    background-color: #fff;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.message-input {
+    padding: 10px 15px;
+    background-color: #f0f2f5;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #e9edef;
+}
+
+#message-input {
+    flex: 1;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: none;
+    font-size: 15px;
+    margin-right: 10px;
+}
+
+#send-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #00a884;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+#send-button:hover {
+    background-color: #008069;
+}
+
+#send-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.empty-message {
+    text-align: center;
+    color: #667781;
+    margin-top: 50%;
+    font-size: 14px;
 }

@@ -108,7 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const avatarImg = document.createElement('img')
             avatarImg.src = contact.image
-            avatarImg.alt = contact.name
             avatarImg.onerror = function() {
                 this.onerror = null
                 this.src = `https://via.placeholder.com/50/cccccc/999999?text=${contact.name.charAt(0)}`
@@ -118,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const infoDiv = document.createElement('div')
             
             const nameDiv = document.createElement('div')
-            nameDiv.className = 'contact-name'
             nameDiv.textContent = contact.name
             
             const lastMsgDiv = document.createElement('div')
@@ -192,7 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const avatarImg = document.createElement('img')
         avatarImg.src = contact.image
-        avatarImg.alt = contact.name
         avatarImg.onerror = function() {
             this.onerror = null
             this.src = `https://via.placeholder.com/40/cccccc/999999?text=${contact.name.charAt(0)}`

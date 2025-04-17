@@ -8,27 +8,33 @@
 body {
     background-color: #e5ddd5;
     height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    margin: 0;
 }
 
 .app-container {
     display: flex;
     height: 100vh;
-    max-width: 1400px;
-    margin: 0 auto;
+    width: 100vw;
+    margin: 0;
     background-color: #fff;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
 }
 
 .sidebar {
-    width: 30%;
+    width: 45%; /* Aumentei de 30% para 35% */
+    min-width: 450px; /* Aumentei a largura mínima */
+    max-width: 550px; /* Aumentei a largura máxima */
     border-right: 1px solid #e9edef;
     display: flex;
     flex-direction: column;
+    background-color: #fff;
 }
 
 .search-bar {
     padding: 10px;
     background-color: #f0f2f5;
+    border-bottom: 1px solid #e9edef;
 }
 
 .search-bar input {
@@ -43,6 +49,7 @@ body {
 .contacts-list {
     flex: 1;
     overflow-y: auto;
+    background-color: #fff;
 }
 
 .contact {
@@ -64,13 +71,14 @@ body {
 .contact-avatar {
     width: 50px;
     height: 50px;
-    border-radius: 500px;
+    border-radius: 50%;
     overflow: hidden;
     margin-right: 15px;
     background-color: #dfe5e7;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .contact-avatar img {
@@ -82,17 +90,24 @@ body {
 .contact-name {
     font-weight: 500;
     margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .contact-last-msg {
     font-size: 14px;
     color: #667781;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .chat-area {
     flex: 1;
     display: flex;
     flex-direction: column;
+    min-width: 0; /* Permite que o flex item shrink abaixo do conteúdo */
 }
 
 .chat-header {
@@ -113,6 +128,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .chat-header-avatar img {
@@ -124,12 +140,18 @@ body {
 .chat-header-info h3 {
     margin: 0;
     font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .chat-header-info p {
     margin: 0;
     font-size: 12px;
     color: #667781;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .messages-container {
@@ -138,6 +160,8 @@ body {
     overflow-y: auto;
     background-color: #e5ddd5;
     background-image: url('https://web.whatsapp.com/img/bg-chat-tile-light_a4be512e7195b6b733d9110b408f075d.png');
+    display: flex;
+    flex-direction: column;
 }
 
 .message {
@@ -146,6 +170,7 @@ body {
     padding: 8px 12px;
     border-radius: 7.5px;
     position: relative;
+    word-wrap: break-word;
 }
 
 .message.received {
@@ -176,6 +201,7 @@ body {
     padding: 10px;
     background-color: #f0f2f5;
     display: flex;
+    border-top: 1px solid #e9edef;
 }
 
 .message-input input {
@@ -184,6 +210,7 @@ body {
     border-radius: 8px;
     border: none;
     font-size: 15px;
+    min-width: 0; /* Permite que o input shrink */
 }
 
 .message-input button {
@@ -194,10 +221,16 @@ body {
     background-color: #00a884;
     color: white;
     cursor: pointer;
+    flex-shrink: 0;
 }
 
 .message-input button:hover {
     background-color: #008069;
+}
+
+.message-input button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
 }
 
 .contact-avatar img[src*="placeholder.com"],
@@ -223,6 +256,7 @@ body {
     border: none;
     font-size: 15px;
     margin-right: 10px;
+    min-width: 0;
 }
 
 #send-button {
@@ -242,4 +276,25 @@ body {
 #send-button:disabled {
     background-color: #cccccc;
     cursor: not-allowed;
+}
+
+/* Adicionando responsividade para telas menores */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        max-width: none;
+    }
+    
+    .chat-area {
+        display: none;
+    }
+    
+    .sidebar.active + .chat-area {
+        display: flex;
+        width: 100%;
+    }
+    
+    .sidebar.active {
+        display: none;
+    }
 }
